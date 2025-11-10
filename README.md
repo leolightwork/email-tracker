@@ -28,8 +28,17 @@ npm run build
 
 ```bash
 cd server
-.\.venv\Scripts\activate (windows)
-source myfirstproject/bin/activate (mac / linux)
+
+#create virtual environment
+py -3 -m venv .venv #windows
+python3 -m venv .venv #mac/linux
+
+#activate virtual environment (do this every time before launch)
+.venv\Scripts\activate #windows
+. .venv/bin/activate #mac/linux
+
 pip install -r requirements.txt
 flask --app .\main.py run --port=8080
 ```
+
+You can now open the app by navigating to http://127.0.0.1:8080 in your browser.
