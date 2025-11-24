@@ -12,8 +12,8 @@ The Automated Email Submission Interface is a web-based tool designed to automat
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/leolightwork/email-tracker-frontend.git
-cd email-tracker-frontend
+git clone https://github.com/leolightwork/email-tracker.git
+cd email-tracker
 ```
 
 ### 2. Setup Client (React)
@@ -27,7 +27,7 @@ npm run build
 ### 3. Setup Backend (Flask)
 
 ```bash
-cd server
+cd ../server
 
 #create virtual environment
 py -3 -m venv .venv #windows
@@ -38,7 +38,8 @@ python3 -m venv .venv #mac/linux
 . .venv/bin/activate #mac/linux
 
 pip install -r requirements.txt
-flask --app .\main.py run --port=8080
+flask --app .\main.py run --port=8080 #windows
+flask --app ./main.py run --port=8080 #linux/mac
 ```
 
 You can now open the app by navigating to http://127.0.0.1:8080 in your browser.
