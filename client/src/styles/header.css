@@ -12,6 +12,7 @@ h1 {
   text-transform: uppercase;
   color: rgb(17, 17, 17);
   margin: 0.25rem 0.5rem;
-  font-weight: 300;
+  font-weight: 400;
   font-family: 'Inter', sans-serif;
+  letter-spacing: -.1rem;
 }

@@ -81,9 +81,12 @@ form {
   width: 50%;
   
 }
-input,
-textarea {
+input {
   min-width: 50%;
+  border: 1px solid rgb(36, 36, 36);
+  border-radius: 5px;
+  margin-bottom: .25rem;
+
 }
 
 .label-flex {
@@ -92,8 +95,11 @@ textarea {
 
 }
 label {
-  text-align: left;
+  text-align: right;
   width: 100%;
+  margin-right: 3rem;
+  margin-bottom: .25rem;
+  border-bottom: 2px solid rgba(88, 88, 88, 0.194);
 }
 
 h4 {
@@ -117,9 +123,10 @@ button {
   border: none;
   background-color: rgb(79, 225, 230, 1);
   transition: background-color 0.1s ease, color 0.1s ease;
+  cursor: pointer;
 }
 
 button:hover {
-  background-color: rgba(82, 82, 82, 0.356);
+  background-color: rgb(55, 55, 55);
   color: white;
 }
