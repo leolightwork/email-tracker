@@ -20,14 +20,14 @@
 }
 .card-header {
   /* margin-top: 4rem; */
-  min-width: 75%;
+  min-width: 80%;
   background-color: rgb(79, 225, 230);
 
   margin-bottom: 0.25rem;
 }
 
 .form-wrapper {
-  width: 75%;
+  width: 80%;
   background-color: rgb(222, 222, 222);
   /* height: 20rem; */
 }
@@ -61,45 +61,53 @@ h3 {
   flex-direction: column;
   justify-content: center;
   margin-top: 3rem;
-
+}
+label {
+  text-align: right;
+  width: 100%;
+  margin-right: 3rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 2px solid rgba(88, 88, 88, 0.194);
 }
 @media (max-width: 800px) {
-  .label-flex,label,input {
+  .label-flex,
+  label,
+  input {
     min-width: 50%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    overflow:hidden
-    /* margin: 0 auto; */
+    overflow: hidden;
+    border-bottom: none;
+
   }
 
+  label {
+    margin: 0;
+    padding-bottom: .25rem;
+  }
+
+  input {
+    max-width: 50%;
+  }
 }
 form {
   margin: 0 auto;
-  width: 50%;
-  
+  min-width: 50%;
 }
 input {
   min-width: 50%;
   border: 1px solid rgb(36, 36, 36);
   border-radius: 5px;
-  margin-bottom: .25rem;
-
+  margin-bottom: 0.25rem;
+  padding-left: 0.25rem;
 }
 
 .label-flex {
   display: flex;
   margin: 0.5rem;
-
-}
-label {
-  text-align: right;
-  width: 100%;
-  margin-right: 3rem;
-  margin-bottom: .25rem;
-  border-bottom: 2px solid rgba(88, 88, 88, 0.194);
 }
 
 h4 {
@@ -114,7 +122,6 @@ h4 {
   justify-content: center;
   margin-top: 3rem;
   margin-bottom: 3rem;
-
 }
 button {
   color: rgb(49, 49, 49);

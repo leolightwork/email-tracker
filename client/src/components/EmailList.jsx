@@ -39,7 +39,7 @@ const EmailList = ({ setView }) => {
             )}
           </div>
         </div>
-      </div>
+      </div>  
     </>
   );
 };
