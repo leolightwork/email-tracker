@@ -11,8 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+emails.json
 
 # Editor directories and files
+__pycache__/
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -23,3 +25,4 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.venv
