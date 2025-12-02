@@ -5,10 +5,40 @@ import ToggleBar from './ToggleBar';
 
 const MainCard = ({ setView }) => {
   const { register, handleSubmit } = useForm();
-  const [email, setEmail] = useState('');
-  const [course, setCourse] = useState('');
-  const [date, setDate] = useState('');
-  const [interval, setInterval] = useState(0);
+  const onSubmit = async (formData) => {
+    const formattedDate = new Date(formData.date)
+      .toLocaleString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      })
+      .replace(',', '');
+
+    const payload = {
+      recipients: formData.email,
+      class: formData.course,
+      date: formattedDate,
+      repeat: Number(formData.interval),
+    };
+    try {
+      const res = await fetch('/upload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        throw new Error('Server Error');
+      }
+    } catch {
+      console.log("Submission Failed");
+    }
+  };
 
   return (
     <>
@@ -21,27 +51,40 @@ const MainCard = ({ setView }) => {
             <h3>Create</h3>
           </div>
           <div className="main-form">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="label-flex">
                 <label htmlFor="email">Email:</label>
-                <input {...register('email')} />
+                <input
+                  type="email"
+                  {...register('email', { required: true })}
+                />
               </div>
 
               <div className="label-flex">
                 <label htmlFor="course">Course:</label>
-                <input {...register('course')} />
+                <input
+                  type="text"
+                  {...register('course', { required: true })}
+                />
               </div>
 
               <h4>Schedule / Interval </h4>
               <div className="label-flex">
                 <label htmlFor="date">Date To Send:</label>
-                <input {...register('date')} />
+                <input
+                  type="datetime-local"
+                  {...register('date', { required: true })}
+                />
               </div>
               <div className="label-flex">
                 <label htmlFor="interval">
                   Days Of Each Recurring Submission:
                 </label>
-                <input {...register('interval')} />
+                <input
+                  type="number"
+                  min={0}
+                  {...register('interval', { required: true })}
+                />
               </div>
               <button type="submit" className="form-button">
                 Create
