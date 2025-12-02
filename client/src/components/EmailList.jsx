@@ -3,7 +3,7 @@ import ToggleBar from './ToggleBar';
 import '../styles/main-card.css';
 import { useEffect, useState } from 'react';
 
-const EmailList = ({ setView }) => {
+const EmailList = ({ setView, view }) => {
   const [data, setEmailData] = useState([]);
   const [selectedEmails, setSelectedEmails] = useState([]);
 
@@ -50,45 +50,49 @@ const EmailList = ({ setView }) => {
   return (
     <>
       <div className="body-wrapper">
-        <ToggleBar setView={setView} />
+        <ToggleBar setView={setView} view={view} />
 
         <div className="form-wrapper">
           <div className="banner-create">
-            <h3>Active Email List</h3>
+            {data.length === 0 ? (<></>) : (<h3>Active Email List</h3>)}
+            
           </div>
           <div className="main-form">
             {data.length === 0 ? (
-              <p> No Active Emails</p>
+              <p className="no-active-email"> No Active Emails</p>
             ) : (
               data.map((email) => (
-                <div className="email-row" key={email.id}>
-                  <ul>
-                    <li>
-                      <div className="list-container">
-                        <input
-                          type="checkbox"
-                          checked={selectedEmails.includes(email.id)}
-                          onChange={() => toggleSelect(email.id)}
-                        />
-                        <div className="email-recipients">
-                          {email.recipients}
+                <div className="list-container">
+                  <div className="email-row" key={email.id}>
+                    <ul>
+                      <li>
+                        <div className="list-container">
+                          <input
+                            type="checkbox"
+                            checked={selectedEmails.includes(email.id)}
+                            onChange={() => toggleSelect(email.id)}
+                          />
+                          <div className="email-recipients">
+                            {email.recipients}
+                          </div>
+                          -<div className="email-date">{email.date}</div>
                         </div>
-                        -<div className="email-date">{email.date}</div>
-                      </div>
-                    </li>
-                  </ul>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               ))
             )}
           </div>
-
-          <button
-            className="delete-button"
-            onClick={deleteEmails}
-            disabled={selectedEmails.length === 0}
-          >
-            Delete selected {selectedEmails.length} emails
-          </button>
+          {selectedEmails.length > 0 && (
+            <button
+              className="delete-button"
+              onClick={deleteEmails}
+              disabled={selectedEmails.length === 0}
+            >
+              Delete selected {selectedEmails.length} emails
+            </button>
+          )}
         </div>
       </div>
     </>

@@ -1,3 +1,12 @@
-.test {
-    background-color: coral;
+.no-active-email {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Will Need */
+.list-container {
+}
+
+.delete-button:hover {
+background-color: rgb(239, 68, 68);
 }

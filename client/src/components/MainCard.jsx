@@ -3,8 +3,12 @@ import { useForm } from 'react-hook-form';
 import '../styles/main-card.css';
 import ToggleBar from './ToggleBar';
 
-const MainCard = ({ setView }) => {
-  const { register, handleSubmit } = useForm();
+const MainCard = ({ setView, view }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isLoading },
+  } = useForm();
   const onSubmit = async (formData) => {
     const formattedDate = new Date(formData.date)
       .toLocaleString('en-GB', {
@@ -36,7 +40,7 @@ const MainCard = ({ setView }) => {
         throw new Error('Server Error');
       }
     } catch {
-      console.log("Submission Failed");
+      console.log('Submission Failed');
     }
   };
 
@@ -45,7 +49,7 @@ const MainCard = ({ setView }) => {
       <div className="body-wrapper">
         {/* <div className="card-wraper"> */}
 
-        <ToggleBar setView={setView} />
+        <ToggleBar setView={setView} view={view} />
         <div className="form-wrapper">
           <div className="banner-create">
             <h3>Create</h3>
@@ -56,9 +60,21 @@ const MainCard = ({ setView }) => {
                 <label htmlFor="email">Email:</label>
                 <input
                   type="email"
-                  {...register('email', { required: true })}
+                  {...register('email', {
+                    required: 'Email is required',
+                    validate: (value) => {
+                      if (!value.includes('a')) {
+                        return 'Email must include @';
+                      }
+                      return true;
+                    },
+                  })}
                 />
+                
               </div>
+              {errors.email && (
+                  <div className="errors">{errors.email.message}</div>
+                )}
 
               <div className="label-flex">
                 <label htmlFor="course">Course:</label>
@@ -78,7 +94,7 @@ const MainCard = ({ setView }) => {
               </div>
               <div className="label-flex">
                 <label htmlFor="interval">
-                  Days Of Each Recurring Submission:
+                  Days Between Each Recurring Submission:
                 </label>
                 <input
                   type="number"

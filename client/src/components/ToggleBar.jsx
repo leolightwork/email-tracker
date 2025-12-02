@@ -1,12 +1,22 @@
 import '../styles/main-card.css';
-import React from 'react';
 
-const ToggleBar = ({ setView }) => {
+const ToggleBar = ({ setView, view }) => {
   return (
     <>
       <div className="card-header">
-        <button onClick={() => setView('create')}>Create</button>
-        <button onClick={() => setView('list')}>Email List</button>
+        <button
+          onClick={() => setView('create')}
+          className={view === 'create' ? 'active-tab' : ''}
+        >
+          Create
+        </button>
+        
+        <button
+          onClick={() => setView('list')}
+          className={view === 'list' ? 'active-tab' : ''}
+        >
+          Email List
+        </button>
       </div>
     </>
   );
