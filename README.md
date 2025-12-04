@@ -35,7 +35,7 @@ python3 -m venv .venv #mac/linux
 
 #activate virtual environment (do this every time before launch)
 .venv\Scripts\activate #windows
-. .venv/bin/activate #mac/linux
+source .venv/bin/activate #mac/linux
 
 pip install -r requirements.txt
 flask --app .\main.py run --port=8080 #windows
