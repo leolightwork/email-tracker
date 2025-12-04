@@ -36,7 +36,7 @@ def download():
 
 @app.route('/delete', methods=['POST'])
 def delete():
-    incRequest = request.json['ids'][0]
+    incRequest = request.json['ids']
     # print(request.json['ids'])
     for id in incRequest:
         # print(id)
