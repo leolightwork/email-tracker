@@ -35,10 +35,14 @@ def download():
 
 @app.route('/delete', methods=['POST'])
 def delete():
-    incRequest = request.json
-    cancel_email(incRequest['id'])
-    print(schedule.get_jobs())
-    return ''
+    incRequest = request.json['ids'][0]
+    # print(request.json['ids'])
+    for id in incRequest:
+        # print(id)
+        cancel_email(id)
+    # cancel_email(incRequest['id'])
+    # print(schedule.get_jobs())
+    return('', 200)
 
 def run_continuously(interval=1):
     cease_continuous_run = threading.Event()
@@ -172,7 +176,6 @@ def schedule_email_from_file(_emailContent):
     global emailObjs
     
     emailId = _emailContent['id']
-
     if _emailContent['repeat'] == 0:
         schedule.every().second.do(send_email_once, _emailId=emailId).tag(str(emailId))
     else:
@@ -181,7 +184,7 @@ def schedule_email_from_file(_emailContent):
 def cancel_email(_emailId):
     global emailObjs
     global email_file
-    
+    print(schedule.get_jobs(str(_emailId)))
     schedule.clear(str(_emailId))
 
     emailObjs = [

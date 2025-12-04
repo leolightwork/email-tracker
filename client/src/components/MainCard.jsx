@@ -94,7 +94,7 @@ const MainCard = ({ setView, view }) => {
               </div>
               <div className="label-flex">
                 <label htmlFor="interval">
-                  Days Between Each Recurring Submission:
+                  Days Between Each Recurring Submission (0 for one time reminder):
                 </label>
                 <input
                   type="number"

@@ -22,7 +22,7 @@ const EmailList = ({ setView, view }) => {
         const data = await res.json();
         console.log(data);
         setEmailData(data);
-      } catch (err) {
+      } catch {
         console.log('Failed to fetch data...');
       }
     };
@@ -38,11 +38,16 @@ const EmailList = ({ setView, view }) => {
         },
         body: JSON.stringify({ ids: [selectedEmails] }),
       });
+      // setEmailData((prev) => {
+      //   prev.filter((email) => !selectedEmails.includes(email.id));
+      // });
+      const res = await fetch('/getemails');
+      const data = await res.json();
+      console.log(data);
+      setEmailData(data);
 
-      setEmailData((prev) => {
-        prev.filter((email) => !selectedEmails.includes(email.id));
-      });
-      setSelectedEmails([]);
+      setSelectedEmails([])
+
     } catch {
       console.log('Error deleting emails');
     }
@@ -75,7 +80,9 @@ const EmailList = ({ setView, view }) => {
                           <div className="email-recipients">
                             {email.recipients}
                           </div>
-                          -<div className="email-date">{email.date}</div>
+                          <div className="email-course">{email.class}</div>
+                          <div className="email-date">Next reminder date: {email.date}</div>
+                          <div className="email-date">Recurs Every: {email.repeat} days</div>
                         </div>
                       </li>
                     </ul>
@@ -86,6 +93,7 @@ const EmailList = ({ setView, view }) => {
           </div>
           {selectedEmails.length > 0 && (
             <button
+              type="simpleQuery"
               className="delete-button"
               onClick={deleteEmails}
               disabled={selectedEmails.length === 0}
