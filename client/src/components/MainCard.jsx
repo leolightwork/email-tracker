@@ -28,7 +28,7 @@ const MainCard = ({ setView, view }) => {
       repeat: Number(formData.interval),
     };
     try {
-      const res = await fetch('/upload', {
+      const res = await fetch('http://127.0.0.1:8080/upload', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -107,6 +107,8 @@ const MainCard = ({ setView, view }) => {
               </button>
             </form>
           </div>
+        </div>
+        <div className="delete-slot">
         </div>
       </div>
       {/* </div> */}

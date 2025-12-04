@@ -29,10 +29,9 @@
 .form-wrapper {
   width: 80%;
   background-color: rgb(222, 222, 222);
-box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  
-  /* height: 20rem; */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 
+  /* height: 20rem; */
 }
 
 h2 {

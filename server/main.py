@@ -1,7 +1,8 @@
 import os
 from flask import Flask, flash, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
-
+from flask import Flask, request, redirect, url_for, send_from_directory
+from flask_cors import CORS
 import json
 from datetime import datetime
 from datetime import timedelta
@@ -14,7 +15,7 @@ from email.message import EmailMessage
 import threading
 
 app = Flask(__name__, static_folder = "../client/dist", static_url_path='/')
-
+CORS(app, origins=["http://localhost:5173"])
 
 @app.route('/')
 def home():
