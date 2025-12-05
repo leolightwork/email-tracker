@@ -38,9 +38,7 @@ const EmailList = ({ setView, view }) => {
         },
         body: JSON.stringify({ ids: selectedEmails }),
       });
-      // setEmailData((prev) => {
-      //   prev.filter((email) => !selectedEmails.includes(email.id));
-      // });
+
       const res = await fetch('http://127.0.0.1:8080/getemails');
       const data = await res.json();
       console.log(data);
@@ -66,7 +64,7 @@ const EmailList = ({ setView, view }) => {
             ) : (
               data.map((email) => (
                 <div className="list-container" key={email.id}>
-                  <div className="email-row" >
+                  <div className="email-row">
                     <ul>
                       <li>
                         <div className="list-container1">

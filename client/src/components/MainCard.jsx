@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import '../styles/main-card.css';
 import ToggleBar from './ToggleBar';
@@ -47,8 +46,6 @@ const MainCard = ({ setView, view }) => {
   return (
     <>
       <div className="body-wrapper">
-        {/* <div className="card-wraper"> */}
-
         <ToggleBar setView={setView} view={view} />
         <div className="form-wrapper">
           <div className="banner-create">
@@ -111,7 +108,6 @@ const MainCard = ({ setView, view }) => {
         <div className="delete-slot">
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 };

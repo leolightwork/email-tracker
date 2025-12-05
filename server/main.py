@@ -1,18 +1,16 @@
 import os
+import json
+import schedule
+import time
+import smtplib
+import threading
 from flask import Flask, flash, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 from flask import Flask, request, redirect, url_for, send_from_directory
 from flask_cors import CORS
-import json
 from datetime import datetime
 from datetime import timedelta
-import time
-import schedule
-
-import smtplib
 from email.message import EmailMessage
-
-import threading
 
 app = Flask(__name__, static_folder = "../client/dist", static_url_path='/')
 CORS(app, origins=["http://localhost:5173"])
@@ -20,8 +18,6 @@ CORS(app, origins=["http://localhost:5173"])
 @app.route('/')
 def home():
     return send_from_directory(app.static_folder, "index.html")
-
-
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -105,7 +101,6 @@ The ABET Accreditation Assessment Tracker is available at https://google.com""")
             print("error sending email id " + str (_emailId) + " with exception: ")
             print(e)
 
-
 def send_email_once(_emailId):
     global emailObjs
     global sender
@@ -145,8 +140,6 @@ The ABET Accreditation Assessment Tracker is available at https://google.com""")
         except Exception as e:
             print("error sending email id " + str (_emailId) + " with exception: ")
             print(e)
-
-
 
 def schedule_email(_emailContent):
     global email_file
