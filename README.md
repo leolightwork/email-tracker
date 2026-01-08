@@ -1,13 +1,14 @@
 #### AUTOMATED EMAIL SUBMISSION UI INTERFACE
 
-The Automated Email Submission Interface is a web-based tool designed to automate and simplify the process of sending structured emails for submissions. It an admin users to compose, schedule, and automatically send messages to specific recipients. Provides real-time status tracking for sent, pending, and failed messages, ensuring reliability and transparency. This project demonstrates an understanding of automation, input validation, and API integration in modern web applications
+The Automated Email Submission Interface is a web-based application that streamlines the creation, scheduling, and delivery of structured email submissions. It enables administrators to compose messages, define delivery times, and automatically send emails to targeted recipients. The system provides real-time status tracking for sent, pending, and failed messages, ensuring transparency and reliability throughout the submission process. This project demonstrates practical experience with automation workflows, input validation, and API integration in a modern web application environment.
 
 ### Tech Stach
-* React (node js required)
-* Flask
-* Python (3.12+ Required)
 
-### Getting started
+JavaScript (ES6+)
+React (Node.js required)
+Express.js (Node.js backend)
+
+### GETTING STARTED
 
 ### 1. Clone the repository
 
@@ -24,7 +25,7 @@ npm install
 npm run build
 ```
 
-### 3. Setup Backend (Flask)
+### 3. Setup Backend (Express)
 
 ```bash
 cd ../server
