@@ -213,9 +213,4 @@ smtp_server.login(sender, password)
 email_thread = threading.Thread(target = run_continuously)
 email_thread.daemon = True
 email_thread.start()
-# schedule.every().second.do(test_job)
 
-# email_thread.set()
-
-
-# print(schedule.get_jobs())
