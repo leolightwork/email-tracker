@@ -31,13 +31,11 @@ const EmailList = ({ setView, view }) => {
 
   const deleteEmails = async () => {
     try {
-      await fetch('http://127.0.0.1:8080/delete', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ids: selectedEmails }),
-      });
+      for (const id of selectedEmails) {
+        await fetch(`/delete/${id}`, {
+          method: 'DELETE',
+        });
+      }
 
       const res = await fetch('http://127.0.0.1:8080/getemails');
       const data = await res.json();
@@ -49,6 +47,7 @@ const EmailList = ({ setView, view }) => {
       console.log('Error deleting emails');
     }
   };
+
   return (
     <>
       <div className="body-wrapper2">

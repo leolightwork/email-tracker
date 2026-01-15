@@ -8,6 +8,7 @@ const MainCard = ({ setView, view }) => {
     handleSubmit,
     formState: { errors, isLoading },
   } = useForm();
+  
   const onSubmit = async (formData) => {
     const formattedDate = new Date(formData.date)
       .toLocaleString('en-GB', {

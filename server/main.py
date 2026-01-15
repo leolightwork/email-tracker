@@ -26,6 +26,7 @@ def upload():
     schedule_email(emailContent)
     return ''
 
+# **** Refactoring ****
 @app.route('/getemails', methods=['GET'])
 def download():
     return emailObjs

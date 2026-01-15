@@ -2,7 +2,7 @@
 
 The Automated Email Submission Interface is a web-based application that streamlines the creation, scheduling, and delivery of structured email submissions. It enables administrators to compose messages, define delivery times, and automatically send emails to targeted recipients. The system provides real-time status tracking for sent, pending, and failed messages, ensuring transparency and reliability throughout the submission process. This project demonstrates practical experience with automation workflows, input validation, and API integration in a modern web application environment.
 
-### Tech Stach
+### Tech Stack
 
 JavaScript (ES6+)
 React (Node.js required)
