@@ -8,7 +8,7 @@ const MainCard = ({ setView, view }) => {
     handleSubmit,
     formState: { errors, isLoading },
   } = useForm();
-  
+
   const onSubmit = async (formData) => {
     const formattedDate = new Date(formData.date)
       .toLocaleString('en-GB', {
@@ -22,13 +22,14 @@ const MainCard = ({ setView, view }) => {
       .replace(',', '');
 
     const payload = {
-      recipients: formData.email,
-      class: formData.course,
+      emailAddress: formData.email,
+      course: formData.course,
       date: formattedDate,
       repeat: Number(formData.interval),
     };
+
     try {
-      const res = await fetch('http://127.0.0.1:8080/upload', {
+      const res = await fetch('http://localhost:8080/upload', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,11 +69,10 @@ const MainCard = ({ setView, view }) => {
                     },
                   })}
                 />
-                
               </div>
               {errors.email && (
-                  <div className="errors">{errors.email.message}</div>
-                )}
+                <div className="errors">{errors.email.message}</div>
+              )}
 
               <div className="label-flex">
                 <label htmlFor="course">Course:</label>
@@ -81,6 +81,13 @@ const MainCard = ({ setView, view }) => {
                   {...register('course', { required: true })}
                 />
               </div>
+              {/* <div className="label-flex">
+                <label htmlFor="message">Message: </label>
+                <input
+                  type="text"
+                  {...register('message', { required: true })}
+                />
+              </div> */}
 
               <h4>Schedule / Interval </h4>
               <div className="label-flex">
@@ -92,7 +99,8 @@ const MainCard = ({ setView, view }) => {
               </div>
               <div className="label-flex">
                 <label htmlFor="interval">
-                  Days Between Each Recurring Submission (0 for one time reminder):
+                  Days Between Each Recurring Submission (0 for one time
+                  reminder):
                 </label>
                 <input
                   type="number"
@@ -106,8 +114,7 @@ const MainCard = ({ setView, view }) => {
             </form>
           </div>
         </div>
-        <div className="delete-slot">
-        </div>
+        <div className="delete-slot"></div>
       </div>
     </>
   );

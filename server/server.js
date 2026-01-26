@@ -1,98 +1,70 @@
 import express from 'express';
-import path from 'path';
 import cors from 'cors';
-import multer from 'multer';
-import { truncateSync } from 'fs';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import { getEmails, setEmails, deleteEmails, emails } from './utils.js';
+import { sender } from './emailSender.js';
+import Customer from './customer.js';
+
+dotenv.config();
+mongoose.set('strictQuery', false);
+const PORT = 8080;
+const connString = process.env.CONNECTION;
 
 const app = express();
-const PORT = 5000;
-const upload = multer({ dest: 'uploads/' });
-
-//Will need further refactoring when db is introduced
-//Locally based implementation for now
-const emails = [];
-const idSet = 1;
-
-const getEmails = () => {
-  return emails;
-};
-
-const deleteEmails = (id) => {
-  const index = emails.findIndex((e) => e.id === id);
-
-  if (index === -1) return false;
-  emails.splice(index, 1);
-  return true;
-};
-
-const setEmails = (email) => {
-  const emailLoad = { id: idSet++, ...email };
-  emails.push(emailLoad);
-};
-
-const asyncHandler = (fn) => (req, res, next) =>
-  Promise.resolve(fn(req, res, next)).catch(next);
-
 app.use(
   cors({
-    origin: 'http://localhost:5173', //React dev server
-    credentials: truncateSync,
-  })
+    origin: 'http://localhost:5173',
+    credentials: true,
+  }),
 );
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.json());
+app.use(express.static('public'));
 
-// app.listen('/api/emails', () => {
-//   console.log(`App is listening on port ${PORT}`);
-// });
-
-app.post(
-  '/upload',
-  asyncHandler((req, res) => {
-    const emailContent = req.body;
-    setEmails(emailContent);
-    console.log(emailContent);
-
-    if (
-      !emailContent.recipients ||
-      !emailContent.class ||
-      !emailContent.date ||
-      !emailContent.repeat
-    ) {
-      const err = new Error('Missing required fields!');
-      err.status = 400;
-      throw err;
-    }
-
+app.post('/upload', async (req, res) => {
+  try {
+    
+    const newEmailUpload = new Customer(req.body);
+    await newEmailUpload.save();
+    console.log(newEmailUpload)
     res.status(201).json({ success: true });
-  })
-);
-
-app.get('/getemails', (req, res) => {
-  const emails = getEmails();
-  res.json(emails);
+  } catch (error) {
+    res.status(400).send({ error: 'Fill all fields!' });
+  }
 });
 
-// **** Refactoring ****
-app.delete('/delete/:id', (req, res) => {
-  const deleted = deleteEmails(req.params.id);
+app.get('/getemails', async (req, res) => {
+  try {
+    const listOfEmails = await Customer.find();
+    console.log(listOfEmails)
+    res.status(200).send(listOfEmails);
+  } catch (error) {
+    res.status(500).json({ error: 'Info Not Found...' });
+  }
+});
 
-  if (!deleted) {
-    const err = new Error('Email does not exist');
-    err.status = 404;
-    throw err;
+app.delete('/delete', async (req, res) => {
+  try {
+    const { ids } = req.body;
+    const deletedEmails = await Customer.deleteMany({
+      _id: { $in: ids },
+    });
+
+    res.status(200).json({
+      deleted: deletedEmails.deletedCount,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 
-  res.status(204).send();
 });
 
-//Safe fallback request
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
+const bootUpDb = async () => {
+  await mongoose.connect(connString);
+  app.listen(PORT, () => {
+    console.log(`Server running on http://127.0.0.1:${PORT}`);
+  });
+};
 
-app.use((err, req, res) => {
-  const errUse = errUse.status || '500';
-  res.status(errUse.status).json({ message: errUse.message });
-});
+bootUpDb();

@@ -15,6 +15,20 @@ from email.message import EmailMessage
 app = Flask(__name__, static_folder = "../client/dist", static_url_path='/')
 CORS(app, origins=["http://localhost:5173"])
 
+def run_continuously(interval=1):
+    cease_continuous_run = threading.Event()
+
+    class ScheduleThread(threading.Thread):
+        @classmethod
+        def run(cls):
+            while not cease_continuous_run.is_set():
+                schedule.run_pending()
+                time.sleep(interval)
+
+    continuous_thread = ScheduleThread()
+    continuous_thread.start()
+    return cease_continuous_run
+
 @app.route('/')
 def home():
     return send_from_directory(app.static_folder, "index.html")
@@ -34,54 +48,35 @@ def download():
 @app.route('/delete', methods=['POST'])
 def delete():
     incRequest = request.json['ids']
-    # print(request.json['ids'])
     for id in incRequest:
-        # print(id)
         cancel_email(id)
-    # cancel_email(incRequest['id'])
-    # print(schedule.get_jobs())
     return('', 200)
 
-def run_continuously(interval=1):
-    cease_continuous_run = threading.Event()
-
-    class ScheduleThread(threading.Thread):
-        @classmethod
-        def run(cls):
-            while not cease_continuous_run.is_set():
-                schedule.run_pending()
-                time.sleep(interval)
-
-    continuous_thread = ScheduleThread()
-    continuous_thread.start()
-    return cease_continuous_run
 
 def send_email(_emailId):
     global emailObjs
     global sender
 
     email_to_send = [email for email in emailObjs if email["id"] == _emailId]
-    # print(email_to_send)
     sendDate = datetime.strptime(email_to_send[0]['date'], '%d/%m/%Y %H:%M')
 
-    # print(datetime.now())
-    # print(sendDate)
+    
     if datetime.now() > sendDate:
         try:
             msg = EmailMessage()
             
             msg.set_content("""Hello, this is a reminder from The University of Southern Charesa administration requesting that you complete the ABET Accreditation Assessment Tracker.
 
-The University of Southern Charesa is responsible for reporting course metrics for its Computer Science and Computer Engineering courses to attain/maintain its accreditation with the Accreditation Board for Engineering and Technology.
+            The University of Southern Charesa is responsible for reporting course metrics for its Computer Science and Computer Engineering courses to attain/maintain its accreditation 
+            with the Accreditation Board for Engineering and Technology.
         
-The ABET Accreditation Assessment Tracker is available at https://google.com""")
-            msg['Subject'] = email_to_send[0]['class'] + " - ABET Submission"
+            The ABET Accreditation Assessment Tracker is available at https://google.com""")
 
+            msg['Subject'] = email_to_send[0]['class'] + " - ABET Submission"
             msg['From'] = sender
             msg['To'] = email_to_send[0]['recipients']
 
             smtp_server.sendmail(sender, msg['To'], msg.as_string())
-            print("recurring email with id " + str(_emailId) + " has been sent")
             
             delta = timedelta(days=email_to_send[0]['repeat']) 
             sendDate = datetime.now() + delta
@@ -107,11 +102,8 @@ def send_email_once(_emailId):
     global sender
 
     email_to_send = [email for email in emailObjs if email["id"] == _emailId]
-    # print(email_to_send)
     sendDate = datetime.strptime(email_to_send[0]['date'], '%d/%m/%Y %H:%M')
 
-    # print(datetime.now())
-    # print(sendDate)
     if datetime.now() > sendDate:
         try:
             msg = EmailMessage()
@@ -127,9 +119,7 @@ The ABET Accreditation Assessment Tracker is available at https://google.com""")
             msg['To'] = email_to_send[0]['recipients']
 
             smtp_server.sendmail(sender, msg['To'], msg.as_string())
-            print("one time email with id " + str(_emailId) + " has been sent")
 
-            #remove our email from email dict and write to the file again
             emailObjs = [
                 email for email in emailObjs
                 if email["id"] != _emailId
@@ -146,9 +136,7 @@ def schedule_email(_emailContent):
     global email_file
     global emailObjs
     
-    #get next email id
     idList = [email.get('id') for email in emailObjs]
-    # print(idList)
     for i in range(1,10000):
         if i not in idList:
             emailId = i
@@ -189,24 +177,18 @@ def cancel_email(_emailId):
     with open(email_file, 'w') as data_out:
         json.dump(emailObjs, data_out)
 
-
-def test_job():
-    print('hello from the schedular thread')
-
 emailObjs = []
 
 email_file = "emails.json"
-if os.path.isfile(email_file):
+    if os.path.isfile(email_file):
     with open(email_file, 'r') as data_in:
         emailObjs = json.load(data_in)
-
-print(emailObjs)
 
 for email in emailObjs:
     schedule_email_from_file(email)
 
-sender = "csc414group6@gmail.com" #ignore this typo in the email address
-password = "wstb cpkj pxir jyra"
+    sender = "csc414group6@gmail.com"
+    password = "wstb cpkj pxir jyra"
 
 smtp_server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
 smtp_server.login(sender, password)
@@ -215,3 +197,5 @@ email_thread = threading.Thread(target = run_continuously)
 email_thread.daemon = True
 email_thread.start()
 
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)

@@ -11,17 +11,17 @@ const EmailList = ({ setView, view }) => {
     setSelectedEmails((prev) =>
       prev.includes(id)
         ? prev.filter((emailId) => emailId !== id)
-        : [...prev, id]
+        : [...prev, id],
     );
   };
 
   useEffect(() => {
     const fetchEmails = async () => {
       try {
-        const res = await fetch('http://127.0.0.1:8080/getemails');
+        const res = await fetch('http://localhost:8080/getemails');
         const data = await res.json();
-        console.log(data);
         setEmailData(data);
+        console.log(data);
       } catch {
         console.log('Failed to fetch data...');
       }
@@ -31,15 +31,14 @@ const EmailList = ({ setView, view }) => {
 
   const deleteEmails = async () => {
     try {
-      for (const id of selectedEmails) {
-        await fetch(`/delete/${id}`, {
-          method: 'DELETE',
-        });
-      }
+      await fetch('/delete', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: selectedEmails }),
+      });
 
-      const res = await fetch('http://127.0.0.1:8080/getemails');
+      const res = await fetch('http://localhost:8080/getemails');
       const data = await res.json();
-      console.log(data);
       setEmailData(data);
 
       setSelectedEmails([]);
@@ -62,15 +61,15 @@ const EmailList = ({ setView, view }) => {
               <p className="no-active-email"> No Active Emails</p>
             ) : (
               data.map((email) => (
-                <div className="list-container" key={email.id}>
+                <div className="list-container" key={email._id}>
                   <div className="email-row">
                     <ul>
                       <li>
                         <div className="list-container1">
                           <div className="email-recipients wrap">
-                            {email.recipients}
+                            {email.emailAddress}
                           </div>
-                          <div className="email-course wrap">{email.class}</div>
+                          <div className="email-course wrap">{email.course}</div>
                           <div className="email-date wrap">
                             Next reminder date: {email.date}
                           </div>
@@ -80,8 +79,8 @@ const EmailList = ({ setView, view }) => {
                           <input
                             className="checkbox"
                             type="checkbox"
-                            checked={selectedEmails.includes(email.id)}
-                            onChange={() => toggleSelect(email.id)}
+                            checked={selectedEmails.includes(email._id)}
+                            onChange={() => toggleSelect(email._id)}
                           />
                         </div>
                       </li>
