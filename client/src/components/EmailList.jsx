@@ -109,3 +109,4 @@ const EmailList = ({ setView, view }) => {
 };
 
 export default EmailList;
+
