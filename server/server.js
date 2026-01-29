@@ -3,8 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { getEmails, setEmails, deleteEmails, emails } from './utils.js';
-import { sender } from './emailSender.js';
-import Customer from './customer.js';
+import { sender } from './controllers/nodeMailerInit.js';
+import Customer from './schemas/customer.js';
 
 dotenv.config();
 mongoose.set('strictQuery', false);

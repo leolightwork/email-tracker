@@ -69,7 +69,9 @@ const EmailList = ({ setView, view }) => {
                           <div className="email-recipients wrap">
                             {email.emailAddress}
                           </div>
-                          <div className="email-course wrap">{email.course}</div>
+                          <div className="email-course wrap">
+                            {email.course}
+                          </div>
                           <div className="email-date wrap">
                             Next reminder date: {email.date}
                           </div>
@@ -109,4 +111,3 @@ const EmailList = ({ setView, view }) => {
 };
 
 export default EmailList;
-
