@@ -31,7 +31,7 @@ const EmailList = ({ setView, view }) => {
 
   const deleteEmails = async () => {
     try {
-      await fetch('/delete', {
+      await fetch('http://localhost:8080/delete', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ids: selectedEmails }),
@@ -50,7 +50,7 @@ const EmailList = ({ setView, view }) => {
   return (
     <>
       <div className="body-wrapper2">
-        <ToggleBar setView={setView} view={view} />
+        <ToggleBar />
 
         <div className="form-wrapper2">
           <div className="banner-create">
@@ -67,16 +67,24 @@ const EmailList = ({ setView, view }) => {
                       <li>
                         <div className="list-container1">
                           <div className="email-recipients wrap">
-                            {email.emailAddress}
+                            Email:
+                          
+                            <div className="list-data">
+                              {email.emailAddress}
+                            </div>
                           </div>
                           <div className="email-course wrap">
-                            {email.course}
+                            Course:{' '}
+                            <div className="list-data"> {email.course}</div>
                           </div>
                           <div className="email-date wrap">
-                            Next reminder date: {email.date}
+                            Next reminder date:{' '}
+                            <div className="list-data">{email.date}</div>
                           </div>
                           <div className="email-date wrap">
-                            Recurs Every: {email.repeat} days
+                            Recurs Every:{' '}
+                            <div className="list-data">{email.repeat} days </div>
+                            
                           </div>
                           <input
                             className="checkbox"

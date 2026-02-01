@@ -1,12 +1,14 @@
 import { useForm } from 'react-hook-form';
 import '../styles/main-card.css';
 import ToggleBar from './ToggleBar';
+import { useEffect } from 'react';
 
 const MainCard = ({ setView, view }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    reset,
+    formState: { errors, isLoading, isSubmitSuccessful },
   } = useForm();
 
   const onSubmit = async (formData) => {
@@ -44,11 +46,16 @@ const MainCard = ({ setView, view }) => {
       console.log('Submission Failed');
     }
   };
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <>
       <div className="body-wrapper">
-        <ToggleBar setView={setView} view={view} />
+        <ToggleBar />
         <div className="form-wrapper">
           <div className="banner-create">
             <h3>Create</h3>
@@ -62,7 +69,7 @@ const MainCard = ({ setView, view }) => {
                   {...register('email', {
                     required: 'Email is required',
                     validate: (value) => {
-                      if (!value.includes('a')) {
+                      if (!value.includes('@')) {
                         return 'Email must include @';
                       }
                       return true;

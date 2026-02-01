@@ -1,22 +1,26 @@
 import '../styles/main-card.css';
+import { Link, useLocation } from 'react-router-dom';
 
-const ToggleBar = ({ setView, view }) => {
+const ToggleBar = () => {
+  const location = useLocation();
+  const isCreate = location.pathname ==='/' || location.pathname.endsWith('/create') 
   return (
     <>
-      <div className="card-header">
-        <button
-          onClick={() => setView('create')}
-          className={view === 'create' ? 'active-tab' : ''}
+      <div className="card-header app-nav">
+        
+        <Link
+          to="/create"
+          className={isCreate ? 'active-tab' : ''}
         >
           Create
-        </button>
-        
-        <button
-          onClick={() => setView('list')}
-          className={view === 'list' ? 'active-tab' : ''}
+        </Link>
+        <Link
+          to="/list"
+          className={location.pathname.endsWith('/list') ? 'active-tab' : ''}
         >
           Email List
-        </button>
+        </Link>
+      
       </div>
     </>
   );

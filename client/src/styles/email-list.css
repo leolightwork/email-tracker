@@ -14,8 +14,17 @@
 }
 .wrap {
   margin: 0.2rem;
+  display: flex;
   padding: 0.5rem;
   border: 1px solid rgba(59, 59, 59, 0.201);
+  flex-wrap: wrap;
+}
+
+.list-data {
+  margin-left: .2rem;
+  font-weight: 300;
+  display: flex;
+  flex-wrap: wrap;
 }
 .list-container {
   width: 100%;
@@ -24,7 +33,7 @@
 }
 
 .email-row {
-  width: 100%;
+  width: 50%;
   max-width: 800px;
   margin: 1rem;
 }
