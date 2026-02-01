@@ -68,7 +68,6 @@ const EmailList = ({ setView, view }) => {
                         <div className="list-container1">
                           <div className="email-recipients wrap">
                             Email:
-                          
                             <div className="list-data">
                               {email.emailAddress}
                             </div>
@@ -83,8 +82,9 @@ const EmailList = ({ setView, view }) => {
                           </div>
                           <div className="email-date wrap">
                             Recurs Every:{' '}
-                            <div className="list-data">{email.repeat} days </div>
-                            
+                            <div className="list-data">
+                              {email.repeat} days{' '}
+                            </div>
                           </div>
                           <input
                             className="checkbox"

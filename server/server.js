@@ -60,6 +60,22 @@ app.delete('/delete', async (req, res) => {
 
 });
 
+app.post('/auth/register', (req,res)=> {
+
+})
+
+app.post('/auth/login', (req,res)=> {
+  
+})
+
+app.post('/auth/refresh', (req,res)=> {
+  
+})
+
+app.post('/auth/logout', (req,res)=> {
+  
+})
+
 const bootUpDb = async () => {
   await mongoose.connect(connString);
   app.listen(PORT, () => {
