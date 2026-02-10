@@ -10,7 +10,7 @@ This project demonstrates practical experience building and integrating a React 
 
 - Create, update, and delete scheduled email reminders
 - Automatic email delivery using Nodemailer
-- Track email status (pending, sent, failed)
+- Track email submissions with list page
 - Form validation and error handling
 - Persistent storage with MongoDB
 - RESTful API architecture
