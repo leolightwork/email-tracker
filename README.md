@@ -38,7 +38,6 @@ This project demonstrates practical experience building and integrating a React 
 ### Tools
 - Git
 - npm
-- Vercel (if deployed)
 
 ---
 
