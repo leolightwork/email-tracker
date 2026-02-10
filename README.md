@@ -1,46 +1,48 @@
-#### AUTOMATED EMAIL SUBMISSION UI INTERFACE
+# MailPilot — Automated Email Reminder System
 
-The Automated Email Submission Interface is a web-based application that streamlines the creation, scheduling, and delivery of structured email submissions. It enables administrators to compose messages, define delivery times, and automatically send emails to targeted recipients. The system provides real-time status tracking for sent, pending, and failed messages, ensuring transparency and reliability throughout the submission process. This project demonstrates practical experience with automation workflows, input validation, and API integration in a modern web application environment.
+MailPilot is a full-stack web application that allows users to create, schedule, manage, and automatically send structured email reminders. The system stores submissions in a MongoDB database and tracks message status to ensure reliability and transparency.
 
-### Tech Stack
+This project demonstrates practical experience building and integrating a React frontend with a Node.js/Express backend, REST APIs, database modeling, and automated email workflows.
 
-JavaScript (ES6+)
-React (Node.js required)
-Express.js (Node.js backend)
+---
 
-### GETTING STARTED
+## Features
 
-### 1. Clone the repository
+- Create, update, and delete scheduled email reminders
+- Automatic email delivery using Nodemailer
+- Track email status (pending, sent, failed)
+- Form validation and error handling
+- Persistent storage with MongoDB
+- RESTful API architecture
 
-```bash
-git clone https://github.com/leolightwork/email-tracker.git
-cd email-tracker
-```
+---
 
-### 2. Setup Client (React)
+## Tech Stack
 
-```bash
-cd client
-npm install
-npm run build
-```
+### Frontend
+- React
+- JavaScript (ES6+)
+- CSS
 
-### 3. Setup Backend (Express)
+### Backend
+- Node.js
+- Express
 
-```bash
-cd ../server
+### Database
+- MongoDB
+- Mongoose
 
-#create virtual environment
-py -3 -m venv .venv #windows
-python3 -m venv .venv #mac/linux
+### Email Service
+- Nodemailer
 
-#activate virtual environment (do this every time before launch)
-.venv\Scripts\activate #windows
-source .venv/bin/activate #mac/linux
+### Tools
+- Git
+- npm
+- Vercel (if deployed)
 
-pip install -r requirements.txt
-flask --app .\main.py run --port=8080 #windows
-flask --app ./main.py run --port=8080 #linux/mac
-```
+---
 
-You can now open the app by navigating to http://127.0.0.1:8080 in your browser.
+## Architecture Overview
+
+The React client communicates with an Express API using HTTP requests.  
+The Express server handles business logic, validates input, interacts with MongoDB through Mongoose models, and triggers email delivery through Nodemailer.
