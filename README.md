@@ -30,7 +30,6 @@ This project demonstrates practical experience building and integrating a React 
 
 ### Database
 - MongoDB
-- Mongoose
 
 ### Email Service
 - Nodemailer
