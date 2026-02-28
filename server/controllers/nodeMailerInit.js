@@ -1,22 +1,22 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
   secure: false,
   auth: {
-    user: 'maddison53@ethereal.email',
-    pass: 'jn7jnAPss4f63QBp6D',
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
   },
 });
 
-export const sender = async (email) => {
+export const sender = async (customer) => {
   const info = await transporter.sendMail({
-    from: '808sk8cake@gmail.com',
-    to: email.recipients,
-    subject: `${email.class} - Reminder`,
-    text: 'This is your reminder.',
+    from: process.env.SMTP_FROM,
+    to: customer.emailAddress,
+    subject: `${customer.course} — Reminder`,
+    text: `Hi,\n\nThis is your scheduled reminder for: ${customer.course}.\n\nScheduled for: ${customer.date}\n\n— MailPilot`,
   });
 
-  console.log('Email sent:', info.messageId);
+  console.log(`Email sent to ${customer.emailAddress} [${info.messageId}]`);
 };

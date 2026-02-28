@@ -1,6 +1,8 @@
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import MainCard from './MainCard.jsx';
 import EmailList from './EmailList.jsx';
+import Login from '../pages/Login.jsx';
+import Signup from '../pages/Signup.jsx';
 import '../styles/global.css';
 import '../styles/header.css';
 
@@ -8,6 +10,8 @@ const Sidebar = () => {
   const location = useLocation();
   const isCreate = location.pathname === '/' || location.pathname === '/create';
   const isList = location.pathname === '/list';
+  const isLogin = location.pathname === '/login';
+  const isSignup = location.pathname === '/signup';
 
   return (
     <aside className="sidebar">
@@ -28,8 +32,8 @@ const Sidebar = () => {
       </nav>
 
       <div className="sidebar-footer">
-        <Link to="/login" className="auth-link">Login</Link>
-        <Link to="/signup" className="auth-link">Sign Up</Link>
+        <Link to="/login" className={`auth-link${isLogin ? ' auth-link--active' : ''}`}>Login</Link>
+        <Link to="/signup" className={`auth-link${isSignup ? ' auth-link--active' : ''}`}>Sign Up</Link>
       </div>
     </aside>
   );
@@ -44,6 +48,8 @@ const App = () => {
           <Route path="/" element={<MainCard />} />
           <Route path="/create" element={<MainCard />} />
           <Route path="/list" element={<EmailList />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </main>
     </div>

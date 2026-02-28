@@ -1,0 +1,93 @@
+/* ── Page wrapper ───────────────────────────────────── */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2.5rem 2rem;
+  min-height: 100%;
+}
+
+/* ── Card ───────────────────────────────────────────── */
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+/* ── Card header ────────────────────────────────────── */
+.auth-card-header {
+  padding: 1.75rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.auth-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.auth-card-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ── Form ───────────────────────────────────────────── */
+.auth-form {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* ── Submit button ──────────────────────────────────── */
+.auth-submit-btn {
+  width: 100%;
+  padding: 0.65rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.auth-submit-btn:hover {
+  background: var(--accent-hover);
+  color: #ffffff;
+}
+
+.auth-submit-btn:active {
+  transform: scale(0.98);
+}
+
+/* ── Footer switch link ─────────────────────────────── */
+.auth-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1.25rem 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.auth-switch-link {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.auth-switch-link:hover {
+  color: var(--accent-hover);
+}
