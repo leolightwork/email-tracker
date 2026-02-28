@@ -1,6 +1,4 @@
 import '../styles/email-list.css';
-import ToggleBar from './ToggleBar';
-import '../styles/main-card.css';
 import { useEffect, useState } from 'react';
 
 const EmailList = ({ setView, view }) => {
@@ -37,7 +35,7 @@ const EmailList = ({ setView, view }) => {
         body: JSON.stringify({ ids: selectedEmails }),
       });
 
-      const res = await fetch('http://localhost:8080/getemails');
+      const res = await fetch('/getemails');
       const data = await res.json();
       setEmailData(data);
 
@@ -50,8 +48,6 @@ const EmailList = ({ setView, view }) => {
   return (
     <>
       <div className="body-wrapper2">
-        <ToggleBar />
-
         <div className="form-wrapper2">
           <div className="banner-create">
             {data.length === 0 ? <></> : <h3>Active Email List</h3>}

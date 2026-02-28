@@ -26,11 +26,14 @@ app.post('/upload', async (req, res) => {
   try {
     
     const newEmailUpload = new Customer(req.body);
+    console.log(req.body)
     await newEmailUpload.save();
+    // await sender(req.body)
     console.log(newEmailUpload)
     res.status(201).json({ success: true });
   } catch (error) {
-    res.status(400).send({ error: 'Fill all fields!' });
+    res.status(400).send({ error: error.message });
+    console.log(error.message)
   }
 });
 

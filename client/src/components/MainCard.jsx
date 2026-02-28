@@ -1,14 +1,13 @@
 import { useForm } from 'react-hook-form';
 import '../styles/main-card.css';
-import ToggleBar from './ToggleBar';
 import { useEffect } from 'react';
 
-const MainCard = ({ setView, view }) => {
+const MainCard = () => {
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isLoading, isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful },
   } = useForm();
 
   const onSubmit = async (formData) => {
@@ -55,10 +54,9 @@ const MainCard = ({ setView, view }) => {
   return (
     <>
       <div className="body-wrapper">
-        <ToggleBar />
         <div className="form-wrapper">
           <div className="banner-create">
-            <h3>Create</h3>
+            <h3>Create New</h3>
           </div>
           <div className="main-form">
             <form onSubmit={handleSubmit(onSubmit)}>

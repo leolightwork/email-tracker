@@ -5,20 +5,20 @@ const customerSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
+    // unique: true,
     lowercase: true,
   },
-  user: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    minLength: 6,
-  },
+  // user: {
+  //   type: String,
+  //   required: true,
+  //   trim: true,
+  //   unique: true,
+  // },
+  // password: {
+  //   type: String,
+  //   required: true,
+  //   minLength: 6,
+  // },
   course: {
     type: String,
     required: true,
@@ -30,8 +30,8 @@ const customerSchema = new mongoose.Schema({
   repeat: Number,
 });
 
-customerSchema.pre('save', async function (next) {
-  if (!this.isModified(password)) return next();
-});
+// customerSchema.pre('save', async function (next) {
+//   if (!this.isModified(password)) return next();
+// });
 
 export default mongoose.model('Customer', customerSchema);
